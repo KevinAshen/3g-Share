@@ -97,18 +97,30 @@
     //控制器创建（导航栏）
     ShareHome *shareHome = [[ShareHome alloc] init];
     shareHome.tabBarItem.image = [[UIImage imageNamed:@"radio_button1_normal"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    shareHome.tabBarItem.selectedImage = [[UIImage imageNamed:@"radio_button1_pressed"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
     ShareSearch *shareSearch = [[ShareSearch alloc] init];
-    shareHome.tabBarItem.image = [[UIImage imageNamed:@"radio_button2_normal"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    shareSearch.tabBarItem.image = [[UIImage imageNamed:@"radio_button2_normal"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    shareSearch.tabBarItem.selectedImage = [[UIImage imageNamed:@"radio_button2_pressed"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
     ShareArticle *shareArticle = [[ShareArticle alloc] init];
     shareArticle.tabBarItem.image = [[UIImage imageNamed:@"radio_button3_normal"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    shareArticle.tabBarItem.selectedImage = [[UIImage imageNamed:@"radio_button3_pressed"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
     ShareActivity *shareActivity = [[ShareActivity alloc] init];
     shareActivity.tabBarItem.image = [[UIImage imageNamed:@"radio_button4_normal"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    shareActivity.tabBarItem.selectedImage = [[UIImage imageNamed:@"radio_button4_pressed"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
     ShareInformation *shareInformation = [[ShareInformation alloc] init];
     shareInformation.tabBarItem.image = [[UIImage imageNamed:@"radio_button5_normal"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    shareInformation.tabBarItem.selectedImage = [[UIImage imageNamed:@"radio_button5_pressed"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     //分栏相关
     UITabBarController* tbController = [[UITabBarController alloc] init];
     tbController.tabBar.translucent = NO;
+    
+    
+    [[UITabBar appearance]setBackgroundColor:[UIColor blackColor]];
     
     //导航栏相关
     UINavigationController * navHome = [[UINavigationController alloc]initWithRootViewController:shareHome];
@@ -120,12 +132,10 @@
     NSArray* arrayMY = [NSArray arrayWithObjects:navHome, navSearch, navArticle, navActivity, navInformation, nil];
     tbController.viewControllers = arrayMY;
     
-    AppDelegate * appDelagete = [UIApplication sharedApplication].delegate;
     
-    appDelagete.window.rootViewController = tbController;
+    tbController.selectedIndex = 0;
     
-    ShareHome *shareHomeView = [[ShareHome alloc] init];
-    [self presentViewController:shareHomeView animated:YES completion:nil];
+    [self presentViewController:tbController animated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {

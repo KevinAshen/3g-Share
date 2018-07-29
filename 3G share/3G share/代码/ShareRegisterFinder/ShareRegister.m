@@ -35,7 +35,7 @@
     UIImageView *miMa_1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
     miMa_1.image = [UIImage imageNamed:@"pass_img"];
     
-    UITextField *youXiang = [[UITextField alloc] initWithFrame:CGRectMake(50, 300, 230, 50)];
+    UITextField *youXiangTextField = [[UITextField alloc] initWithFrame:CGRectMake(50, 300, 230, 50)];
     UITextField *dengLu = [[UITextField alloc] initWithFrame:CGRectMake(50, 370, 230, 50)];
     UITextField *miMa = [[UITextField alloc] initWithFrame:CGRectMake(50, 440, 230, 50)];
 
@@ -55,9 +55,9 @@
     dengLu.leftView = dengLu_1;
     dengLu.leftViewMode = UITextFieldViewModeAlways;
 
-    [youXiang setBorderStyle:UITextBorderStyleRoundedRect];
-    youXiang.leftView = youXiang_1;
-    youXiang.leftViewMode = UITextFieldViewModeAlways;
+    [youXiangTextField setBorderStyle:UITextBorderStyleRoundedRect];
+    youXiangTextField.leftView = youXiang_1;
+    youXiangTextField.leftViewMode = UITextFieldViewModeAlways;
     
     [miMa setBorderStyle:UITextBorderStyleRoundedRect];
     miMa.leftView = miMa_1;
@@ -69,7 +69,7 @@
     [self.view addSubview:share];
     [self.view addSubview:dengLu];
     [self.view addSubview:miMa];
-    [self.view addSubview:youXiang];
+    [self.view addSubview:youXiangTextField];
     [self.view addSubview:button_Deng];
     
 }
