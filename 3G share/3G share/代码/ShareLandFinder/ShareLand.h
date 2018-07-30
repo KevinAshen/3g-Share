@@ -10,4 +10,6 @@
 
 @interface ShareLand : UIViewController
 
+@property (strong, nonatomic) UIWindow *window;
+
 @end

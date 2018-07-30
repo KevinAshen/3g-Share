@@ -10,4 +10,6 @@
 
 @interface ShareActivity : UIViewController
 
+@property (nonatomic, strong) UITableView *tableView;
+
 @end

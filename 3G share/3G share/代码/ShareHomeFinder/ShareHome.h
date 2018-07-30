@@ -10,10 +10,8 @@
 
 @interface ShareHome : UIViewController
 
-@property (strong, nonatomic) UIWindow *window;
-
-
-@property (nonatomic,retain) UIScrollView *scrollView;
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic,retain) UIPageControl *pageControl;
 @property (nonatomic,strong)NSTimer *timer;
 

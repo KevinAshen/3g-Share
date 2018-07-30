@@ -8,11 +8,11 @@
 
 #import "ShareHome.h"
 #import "ShareHomeTableViewCell.h"
+#import "ShareHomeHoliday.h"
 
 
 @interface ShareHome ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>
 
-@property (nonatomic, strong)UITableView *tableView;
 
 @end
 
@@ -22,6 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
 
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.18f green:0.52f blue:0.77f alpha:1.00f];
     [self.navigationController.navigationBar setTitleTextAttributes:
@@ -32,21 +33,24 @@
 //    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     self.navigationItem.title = @"SHARE";
     
+    self.view.backgroundColor = [UIColor lightGrayColor];
+    
     //开始TableView的操作
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 210, 320, 280) style:UITableViewStyleGrouped];
     
     //注册
     [self.tableView registerClass:[ShareHomeTableViewCell class]  forCellReuseIdentifier:@"shareHomeCell"];
     
-    //两行设置不要忘了
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-    //自动调整子视图大小
-    _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight |UIViewAutoresizingFlexibleWidth;
-    
     [self.view addSubview:_tableView];
+    
+    [self layout];
+    
+
 }
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 4;
@@ -57,7 +61,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 140;
+    return 130;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -71,7 +75,8 @@
         
         
         [cell.button1 setImage:button1Image[indexPath.section] forState:UIControlStateNormal];
-        
+    
+        [cell.button1 addTarget:self action:@selector(touchBtn:) forControlEvents:UIControlEventTouchUpInside];
         
         cell.label1.font = [UIFont systemFontOfSize:12];
         cell.label1.textAlignment = NSTextAlignmentLeft;
@@ -94,67 +99,17 @@
         
         
         return cell;
-//    } else {
-//        UITableViewCell *cell1 = [tableView dequeueReusableCellWithIdentifier:@"homeCell1"];
-//
-////        UIScrollView *cellScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, 210)];
-////
-////        //布局ScrollView
-//////        self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(20,40, 280, 130)];
-//////        [self.view addSubview:_scrollView];
-////
-////        UIPageControl *cellPageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(30, 180, 200, 20)];
-////
-//////        //布局pagecontrol
-//////        self.pageControl = [[UIPageControl alloc]initWithFrame:CGRectMake(100, 140, 200, 30)];
-//////
-//////        [self.view addSubview:_pageControl];
-////
-////        int count = 4;
-////        CGSize size = cellScrollView.frame.size;
-////        //1 动态生成5个imageView
-////        for (int i = 0; i < count; i++) {
-////            //
-////            UIImageView *iconView = [[UIImageView alloc] init];
-////            [cellScrollView addSubview:iconView];
-////
-////            NSString *imgName = [NSString stringWithFormat:@"main_img%d",i+1];
-////            iconView.image = [UIImage imageNamed:imgName];
-////
-////            CGFloat x = i * size.width;
-////            //frame
-////            iconView.frame = CGRectMake(x, 0, size.width, size.height);
-////        }
-////        //2 设置滚动范围
-////        cellScrollView.contentSize = CGSizeMake(count * size.width, 0);
-////        cellScrollView.showsHorizontalScrollIndicator = NO;
-////        //3 设置分页
-////        cellScrollView.pagingEnabled = YES;
-////
-////        //4 设置pageControl
-////        cellPageControl.numberOfPages = count;
-////        cellPageControl.currentPageIndicatorTintColor = [UIColor blueColor];
-////        cellPageControl.pageIndicatorTintColor = [UIColor blackColor];
-////        //5 设置scrollView的代理
-////        cellScrollView.delegate = self;
-////        //6 添加定时器
-////        [self addTimerTask];
-////
-////        [cell1.contentView addSubview:cellScrollView];
-////        [cell1.contentView addSubview:cellPageControl];
-//
-//        if (cell1 == nil) {
-//            cell1 = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"homeCell1"];
-//            UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
-//
-//            button.titleLabel.text = @"123";
-//
-//            [cell1.contentView addSubview:button];
-//        }
-//        return cell1;
-//    }
-//
-//
+}
+
+-(void)touchBtn:(UIButton*)button
+{
+    ShareHomeHoliday *holidayViewController = [[ShareHomeHoliday alloc] init];
+    
+    holidayViewController.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:holidayViewController animated:YES];
+    
+
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRooterInSection:(NSInteger)section
@@ -192,6 +147,104 @@
 //并不知道什么意思的函数
 - (UIView *) tableView:(UITableView *)tableView viewForRooterInSection:(NSInteger)section {
     return nil;
+}
+
+-(void)layout{
+    //布局ScrollView
+    self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, 320, 210)];
+    [self.view addSubview:_scrollView];
+    
+    //布局pagecontrol
+    self.pageControl = [[UIPageControl alloc]initWithFrame:CGRectMake(40, 170, 240, 30)];
+    
+    [self.view addSubview:_pageControl];
+    
+    int count = 4;
+    CGSize size = self.scrollView.frame.size;
+    //1 动态生成5个imageView
+    for (int i = 0; i < count; i++) {
+        //
+        UIImageView *iconView = [[UIImageView alloc] init];
+        [self.scrollView addSubview:iconView];
+        
+        NSString *imgName = [NSString stringWithFormat:@"main_img%d",i+1];
+        iconView.image = [UIImage imageNamed:imgName];
+        
+        CGFloat x = i * size.width;
+        //frame
+        iconView.frame = CGRectMake(x, 0, size.width, size.height);
+    }
+    //2 设置滚动范围
+    self.scrollView.contentSize = CGSizeMake(count * size.width, 0);
+    self.scrollView.showsHorizontalScrollIndicator = NO;
+    //3 设置分页
+    self.scrollView.pagingEnabled = YES;
+    
+    //4 设置pageControl
+    self.pageControl.numberOfPages = count;
+    self.pageControl.currentPageIndicatorTintColor = [UIColor blueColor];
+    self.pageControl.pageIndicatorTintColor = [UIColor blackColor];
+    //5 设置scrollView的代理
+    self.scrollView.delegate = self;
+    //6 添加定时器
+    [self addTimerTask];
+    
+}
+
+//把定时器封装起来 方便调用
+-(void)addTimerTask{
+    //6 定时器
+    NSTimer *timer = [NSTimer timerWithTimeInterval:2.0 target:self selector:@selector(nextImage) userInfo:nil repeats:YES];
+    
+    self.timer = timer;
+    
+    //消息循环
+    NSRunLoop *runloop = [NSRunLoop currentRunLoop];
+    // 默认是NSDefaultRunLoopMode  但是另外一个属性NSRunLoopCommonModes 能够在多线程中起作用
+    [runloop addTimer:timer forMode:NSDefaultRunLoopMode];
+    
+    //立即执行定时器的方法  fire 是定时器自带的方法
+    // [timer fire];
+}
+
+-(void)nextImage{
+    //当前页码
+    NSInteger page = self.pageControl.currentPage;
+    //如果是到达最后一张
+    if (page == self.pageControl.numberOfPages - 1) {
+        page = 0;
+        //设置偏移量  当到达最后一张时候 切换到第一张  不产生从最后一张倒回第一张效果
+        _scrollView.contentOffset = CGPointMake(0, 0);
+        [_scrollView setContentOffset:_scrollView.contentOffset animated:YES];
+    }else{
+        page++;
+    }
+    //  self.scrollView setContentOffset:(CGPoint) animated:(BOOL)
+    
+    CGFloat offsetX = page * self.scrollView.frame.size.width;
+    [UIView animateWithDuration:1.0 animations:^{
+        self.scrollView.contentOffset = CGPointMake(offsetX, 0);
+    }];
+}
+
+//正在滚动的时候
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    //   (offset.x + 100/2)/100
+    int page = (scrollView.contentOffset.x + scrollView.frame.size.width / 2)/ scrollView.frame.size.width;
+    self.pageControl.currentPage = page;
+}
+//当你点击图片按住不动的时候 把定时器停止
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    //停止定时器
+    [self.timer invalidate];
+}
+//当不再按图片 也就是松开的时候 立马调用计时器方法
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    
+    //用scheduledTimerWithTimeInterval 创建定时器是用的系统默认的方法 当遇见多线程时候会出现问题
+    //    self.timer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(nextImage) userInfo:nil repeats:YES];
+    //所以还是调用上面创建的定时器方法
+    [self addTimerTask];
 }
 
 - (void)didReceiveMemoryWarning {

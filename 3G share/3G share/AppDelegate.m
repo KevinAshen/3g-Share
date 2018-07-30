@@ -15,6 +15,7 @@
 #import "ShareSearch.h"
 #import "ShareInformation.h"
 #import "ShareStart.h"
+#import "ShareHomeHoliday.h"
 
 @interface AppDelegate ()
 
@@ -30,26 +31,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen] .bounds];
     [self.window makeKeyAndVisible];
     
-//    //控制器创建（导航栏）
-//    ShareHome *shareHome = [[ShareHome alloc] init];
-//    ShareSearch *shareSearch = [[ShareSearch alloc] init];
-//    ShareArticle *shareArticle = [[ShareArticle alloc] init];
-//    ShareActivity *shareActivity = [[ShareActivity alloc] init];
-//    ShareInformation *shareInformation = [[ShareInformation alloc] init];
-//
-//    //分栏相关
-//    UITabBarController* tbController = [[UITabBarController alloc] init];
-//    tbController.tabBar.translucent = NO;
-//
-//    //导航栏相关
-//    UINavigationController * navHome = [[UINavigationController alloc]initWithRootViewController:shareHome];
-//    UINavigationController * navSearch = [[UINavigationController alloc]initWithRootViewController:shareSearch];
-//    UINavigationController * navArticle = [[UINavigationController alloc]initWithRootViewController:shareArticle];
-//    UINavigationController * navInformation = [[UINavigationController alloc]initWithRootViewController:shareInformation];
-//    UINavigationController * navActivity = [[UINavigationController alloc]initWithRootViewController:shareActivity];
-//
-//    NSArray* arrayMY = [NSArray arrayWithObjects:navHome, navSearch, navArticle, navActivity, navInformation, nil];
-//    tbController.viewControllers = arrayMY;
+
     
     ShareStart *shareStart = [[ShareStart alloc] init];
     self.window.rootViewController = shareStart;
