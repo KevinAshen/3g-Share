@@ -26,7 +26,7 @@
 
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.18f green:0.52f blue:0.77f alpha:1.00f];
     [self.navigationController.navigationBar setTitleTextAttributes:
-     @{NSFontAttributeName:[UIFont systemFontOfSize:25],
+     @{NSFontAttributeName:[UIFont systemFontOfSize:20],
     NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
     self.navigationController.navigationBar.translucent = NO;
@@ -76,8 +76,9 @@
         
         [cell.button1 setImage:button1Image[indexPath.section] forState:UIControlStateNormal];
     
-        [cell.button1 addTarget:self action:@selector(touchBtn:) forControlEvents:UIControlEventTouchUpInside];
-        
+        if (indexPath.section == 0) {
+         [cell.button1 addTarget:self action:@selector(touchBtn:) forControlEvents:UIControlEventTouchUpInside];
+        }
         cell.label1.font = [UIFont systemFontOfSize:12];
         cell.label1.textAlignment = NSTextAlignmentLeft;
         cell.label1.numberOfLines = 0;
@@ -139,8 +140,6 @@
 
 //并不知道什么意思的函数
 - (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    //    UIView * test = [UIView new];
-    //    test.backgroundColor = [UIColor purpleColor];
     return nil;
 }
 

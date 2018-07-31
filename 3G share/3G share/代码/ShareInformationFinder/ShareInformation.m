@@ -8,6 +8,10 @@
 
 #import "ShareInformation.h"
 #import "ShareInformationTableViewCell.h"
+#import "ShareInformationSet.h"
+#import "ShareInformationUp.h"
+#import "ShareInformationMessage.h"
+#import "ShareInformationRecommend.h"
 
 @interface ShareInformation () <UITableViewDelegate, UITableViewDataSource>
 
@@ -23,7 +27,7 @@
     
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.18f green:0.52f blue:0.77f alpha:1.00f];
     [self.navigationController.navigationBar setTitleTextAttributes:
-     @{NSFontAttributeName:[UIFont systemFontOfSize:25],
+     @{NSFontAttributeName:[UIFont systemFontOfSize:20],
        NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
     self.navigationController.navigationBar.translucent = NO;
@@ -79,7 +83,7 @@
             NSArray *labelText = [NSArray arrayWithObjects:@"我上传的",  @"我的信息", @"我推荐的", @"院系通知", @"设置", @"退出", nil];
             cell2.textLabel.text = labelText[indexPath.row];
             
-            UIImageView *icon2 = [[UIImageView alloc] initWithFrame:CGRectMake(260, 15, 15, 15)];
+            UIImageView *icon2 = [[UIImageView alloc] initWithFrame:CGRectMake(260, 20, 15, 15)];
             [icon2 setImage:[UIImage imageNamed:@"img3"]];
             
             [cell2.contentView addSubview:icon2];
@@ -133,6 +137,28 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 0 && indexPath.section == 1) {
+        ShareInformationUp *upViewController = [[ShareInformationUp alloc] init];
+        upViewController.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:upViewController animated:YES];
+    }
+    if (indexPath.row == 1 && indexPath.section == 1) {
+        ShareInformationMessage *messageViewController = [[ShareInformationMessage alloc] init];
+        messageViewController.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:messageViewController animated:YES];
+    }
+    if (indexPath.row == 2 && indexPath.section == 1) {
+        ShareInformationRecommend *recommendViewController = [[ShareInformationRecommend alloc] init];
+        recommendViewController.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:recommendViewController animated:YES];
+    }
+    if (indexPath.row == 4 && indexPath.section == 1) {
+        ShareInformationSet *setViewController = [[ShareInformationSet alloc] init];
+        setViewController.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:setViewController animated:YES];
+    }
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
