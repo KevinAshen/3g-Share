@@ -118,7 +118,7 @@
     //分栏相关
     UITabBarController* tbController = [[UITabBarController alloc] init];
     tbController.tabBar.translucent = NO;
-    
+    tbController.tabBar.backgroundColor = [UIColor blackColor];
     
     [[UITabBar appearance]setBackgroundColor:[UIColor blackColor]];
     

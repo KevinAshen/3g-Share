@@ -65,24 +65,6 @@
     return cell1;
 }
 
-- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 4) {
-        
-        [self login];
-    }
-}
-
-- (void) login {
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"清理" message:@"清理成功" preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction* yes = [UIAlertAction actionWithTitle:@"返回" style:UIAlertActionStyleDefault handler:nil];
-    
-    
-    [alert addAction:yes];
-    
-    
-    [self presentViewController:alert animated:YES completion:nil];
-}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 60;

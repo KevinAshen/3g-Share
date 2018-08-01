@@ -133,7 +133,6 @@
 
 - (void)leftBarBtnClicked:(UIButton *)btn
 {
-    
     [self.navigationController popViewControllerAnimated:YES];
 }
 

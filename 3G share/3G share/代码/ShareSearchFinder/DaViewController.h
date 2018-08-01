@@ -1,15 +1,13 @@
 //
-//  ShareSearch.h
+//  DaViewController.h
 //  3G share
 //
-//  Created by 姜凯文 on 2018/7/27.
+//  Created by 姜凯文 on 2018/8/1.
 //  Copyright © 2018年 姜凯文. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface ShareSearch : UIViewController<UITextFieldDelegate>
-//定义属性
+@interface DaViewController : UIViewController
 @property (retain, nonatomic) UITextField* searchBar;
-
 @end

@@ -8,7 +8,7 @@
 
 #import "ShareInformationMessageNew.h"
 
-@interface ShareInformationMessageNew () <UITableViewDelegate, UITableViewDataSource>
+@interface ShareInformationMessageNew () <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 

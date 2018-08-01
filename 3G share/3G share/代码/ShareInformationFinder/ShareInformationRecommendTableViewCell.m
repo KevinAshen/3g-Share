@@ -25,7 +25,7 @@
     return self;
 }
 - (void) layoutSubviews {
-    _button1.frame = CGRectMake(0, 0, 160, 140);
+    _button1.frame = CGRectMake(0, 0, 160, 130);
     
     _label1.frame = CGRectMake(180, 10, 160, 100);
     

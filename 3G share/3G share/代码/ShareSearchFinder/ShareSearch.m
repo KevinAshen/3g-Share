@@ -8,6 +8,8 @@
 
 #import "ShareSearch.h"
 #import "ShareUp.h"
+#import "DaViewController.h"
+
 
 @interface ShareSearch ()
 
@@ -42,13 +44,75 @@
     
     self.view.backgroundColor = [UIColor colorWithRed:0.92f green:0.92f blue:0.93f alpha:1.00f];
     
-    self.searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(10, 10, 300, 40)];
+    self.searchBar = [[UITextField alloc]initWithFrame:CGRectMake(10, 0, 300, 30)];
     self.searchBar.text=@"搜索 用户名 作品分类 文章";
-    
+    self.searchBar.backgroundColor = [UIColor whiteColor];
     self.searchBar.delegate = self;
-    
+    self.searchBar.borderStyle = UITextBorderStyleRoundedRect;
+    [self.searchBar addTarget:self action:@selector(dabai:) forControlEvents:UIControlEventEditingDidEnd];
     [self.view addSubview:self.searchBar];
+    
+    
+    NSArray *tagText = [NSArray arrayWithObjects:@[@"平面设计", @"网页设计", @"UI/icon", @"插画/手绘", @"虚拟设计", @"影视", @"摄影", @"其他"], @[@"人气最高", @"收藏最多", @"评论最多", @"编辑精选"], @[@"30分钟前", @"1小时前", @"1月前", @"1年前"], nil];
+    
 
+    UIImageView *line1 = [[UIImageView alloc] initWithFrame:CGRectMake(6, 40, 300, 30)];
+    [line1 setImage:[UIImage imageNamed:@"lines1"]];
+    [self.view addSubview:line1];
+    for (int i = 0; i < 8; i++) {
+        UIButton *tag1 = [[UIButton alloc] initWithFrame:CGRectMake(10 + 75 * (i % 4), 80 + ((i / 4) * 40), 65, 30)];
+        tag1.titleLabel.textAlignment = NSTextAlignmentCenter;
+        tag1.layer.masksToBounds = YES;
+        tag1.layer.cornerRadius = 3;
+        tag1.titleLabel.font = [UIFont systemFontOfSize:14];
+        tag1.backgroundColor = [UIColor whiteColor];
+        [tag1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [tag1 setTitle:tagText[0][i] forState:UIControlStateNormal];
+        [tag1 addTarget:self action:@selector(touch:) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:tag1];
+    }
+    
+    for (int i = 1; i < 3; i++) {
+        UIImageView *line2 = [[UIImageView alloc] initWithFrame:CGRectMake(6, 160 + 80 * (i / 2), 300, 30)];
+        if (i == 1) {
+            [line2 setImage:[UIImage imageNamed:@"lines2"]];
+        } else {
+            [line2 setImage:[UIImage imageNamed:@"lines3"]];
+        }
+        [self.view addSubview:line2];
+        for (int j = 0; j < 8; j++) {
+            UIButton *tag2 = [[UIButton alloc] initWithFrame:CGRectMake(10 + 75 * (j % 4), 200 + ((i / 2) * 80), 65, 30)];
+            tag2.titleLabel.textAlignment = NSTextAlignmentCenter;
+            tag2.layer.masksToBounds = YES;
+            tag2.layer.cornerRadius = 3;
+            tag2.titleLabel.font = [UIFont systemFontOfSize:14];
+            tag2.backgroundColor = [UIColor whiteColor];
+            [tag2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [tag2 setTitle:tagText[i][j % 4] forState:UIControlStateNormal];
+            [tag2 addTarget:self action:@selector(touch:) forControlEvents:UIControlEventTouchUpInside];
+            [self.view addSubview:tag2];
+        }
+    }
+}
+
+- (void)dabai:(UITextField *)tf{
+    NSString *str = tf.text;
+    NSString *str1 = @"大白";
+    if ([str1 isEqualToString:str])  {
+        DaViewController *daViewController = [[DaViewController alloc] init];
+        [self.navigationController pushViewController:daViewController animated:YES];
+    }
+}
+
+- (void)touch:(UIButton *)button {
+    button.selected = !button.selected;
+    if(button.selected){
+        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [button setBackgroundColor:[UIColor whiteColor]];
+    }else{
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [button setBackgroundColor:[UIColor colorWithRed:0.18f green:0.52f blue:0.77f alpha:1.00f]];
+    }
     
 }
 
