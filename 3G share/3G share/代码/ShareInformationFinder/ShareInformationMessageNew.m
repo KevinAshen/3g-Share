@@ -60,6 +60,7 @@
         
         UIButton *icon1 = [[UIButton alloc] initWithFrame:CGRectMake(230, 30, 60, 30)];
         [icon1 setImage:[UIImage imageNamed:@"guanzhu_normal"] forState:UIControlStateNormal];
+        [icon1 setImage:[UIImage imageNamed:@"guanzhu_pressed"] forState:UIControlStateSelected];
         [icon1 addTarget:self action:@selector(touch:) forControlEvents:UIControlEventTouchUpInside];
         
         [cell1.contentView addSubview:icon1];
@@ -71,11 +72,6 @@
 {
     //设置button的Normal属性  和 selected属性后，通过下面简单非语句切换两种状态
     button.selected = !button.selected;
-    if(button.selected){
-        [button setImage:[UIImage imageNamed:@"guanzhu_normal"] forState:UIControlStateNormal];
-    }else{
-        [button setImage:[UIImage imageNamed:@"guanzhu_pressed"] forState:UIControlStateNormal];
-    }
     
 }
 

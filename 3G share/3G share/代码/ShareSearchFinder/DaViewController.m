@@ -9,7 +9,7 @@
 #import "DaViewController.h"
 #import "ShareInformationRecommendTableViewCell.h"
 
-@interface DaViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface DaViewController ()<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 
@@ -46,6 +46,7 @@
     self.searchBar.text=@"搜索 用户名 作品分类 文章";
     self.searchBar.backgroundColor = [UIColor whiteColor];
     self.searchBar.borderStyle = UITextBorderStyleRoundedRect;
+    self.searchBar.delegate = self;
     [self.view addSubview:self.searchBar];
     
     //开始TableView的操作
@@ -89,12 +90,46 @@
     cell.label1.attributedText = AttributedStr;
     
     
-    [cell.button2 setImage:[UIImage imageNamed:@"点赞"] forState:UIControlStateNormal];
+    [cell.button2 setImage:[UIImage imageNamed:@"button_zan"] forState:UIControlStateNormal];
+    [cell.button2 setTitleColor:[UIColor colorWithRed:0.18f green:0.52f blue:0.77f alpha:1.00f] forState:UIControlStateNormal];
+    [cell.button2 setTitle:@"25" forState:UIControlStateNormal];
+    [cell.button2 setTitle:@"26" forState:UIControlStateSelected];
+    [cell.button2 addTarget:self action:@selector(touchZan:) forControlEvents:UIControlEventTouchUpInside];
+    cell.button2.titleLabel.font = [UIFont systemFontOfSize:11];
+    
+    [cell.button3 setImage:[UIImage imageNamed:@"button_guanzhu"] forState:UIControlStateNormal];
+    [cell.button3 setTitleColor:[UIColor colorWithRed:0.18f green:0.52f blue:0.77f alpha:1.00f] forState:UIControlStateNormal];
+    [cell.button3 setTitle:@"33" forState:UIControlStateNormal];
+    [cell.button3 setTitle:@"34" forState:UIControlStateSelected];
+    [cell.button3 addTarget:self action:@selector(touchZan:) forControlEvents:UIControlEventTouchUpInside];
+    cell.button3.titleLabel.font = [UIFont systemFontOfSize:11];
+    
+    [cell.button4 setImage:[UIImage imageNamed:@"button_share"] forState:UIControlStateNormal];
+    [cell.button4 setTitleColor:[UIColor colorWithRed:0.18f green:0.52f blue:0.77f alpha:1.00f] forState:UIControlStateNormal];
+    [cell.button4 setTitle:@"12" forState:UIControlStateNormal];
+    [cell.button4 setTitle:@"13" forState:UIControlStateSelected];
+    [cell.button4 addTarget:self action:@selector(touchZan:) forControlEvents:UIControlEventTouchUpInside];
+    cell.button4.titleLabel.font = [UIFont systemFontOfSize:11];
     
     
     return cell;
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    // 必须辞去第一响应者后,键盘才会回缩.
+    [textField resignFirstResponder];
+    return YES;
+}
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
+}
+
+-(void)touchZan:(UIButton*)button
+{
+    button.selected = !button.selected;
+    
+}
 
 - (void)leftBarBtnClicked:(UIButton *)btn
 {

@@ -36,7 +36,7 @@
     self.view.backgroundColor = [UIColor lightGrayColor];
     
     //开始TableView的操作
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 210, 320, 280) style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 320, 480) style:UITableViewStyleGrouped];
     
     //注册
     [self.tableView registerClass:[ShareHomeTableViewCell class]  forCellReuseIdentifier:@"shareHomeCell"];
@@ -46,9 +46,61 @@
     
     [self.view addSubview:_tableView];
     
-    [self layout];
+    UIView* titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 208)];
+    _tableView.tableHeaderView = titleView;
     
+    _scrollView = [[UIScrollView alloc] init];
+    _scrollView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 200);
+    //是否按照整页来滚动视图
+    _scrollView.pagingEnabled = YES;
+    //设置画布的大小，画布显示在滚动视图内部，一般大于Frame的大小
+    _scrollView.contentSize = CGSizeMake([UIScreen mainScreen].bounds.size.width*4,200);
+    //开启横向弹动效果
+    _scrollView.alwaysBounceHorizontal = YES;
+    //显示横向滚动条
+    _scrollView.showsHorizontalScrollIndicator = NO;
+    //设置背景颜色
+    _scrollView.delegate = self;
+    
+    _pageControl = [[UIPageControl alloc]initWithFrame:CGRectMake(60, 170, 200, 30)];
+    int count = 4;
+    //CGSize size = _sv.frame.size;
+    
+    
+    for (int i = 0; i < 4; i++) {
+        NSString* strName = [NSString stringWithFormat:@"main_img%d",i+1];
+        
+        UIImage* image = [UIImage imageNamed:strName];
+        
+        UIImageView* iView = [[UIImageView alloc] initWithImage:image];
+        
+        iView.frame = CGRectMake([UIScreen mainScreen].bounds.size.width*i, 0, [UIScreen mainScreen].bounds.size.width,200);
+        
+        [_scrollView addSubview:iView];
+        
+        //CGFloat x = i * size.width;
+    }
+    
+    //4 设置pageControl
+    self.pageControl.numberOfPages = count;
+    self.pageControl.currentPageIndicatorTintColor = [UIColor blueColor];
+    self.pageControl.pageIndicatorTintColor = [UIColor blackColor];
+    //5 设置scrollView的代理
+    _scrollView.delegate = self;
+    //6 添加定时器
+    [self addTimerTask];
+    [titleView addSubview:_scrollView];
+    [titleView addSubview:_pageControl];
 
+    
+//    _tableView.delegate = self;
+//    _tableView.dataSource = self;
+//    [self.view addSubview:_tableView];
+//
+//    _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+//    self.edgesForExtendedLayout = UIRectEdgeAll;
+//    self.automaticallyAdjustsScrollViewInsets = NO;
+    
 }
 
 
@@ -69,37 +121,57 @@
     
     cell = [tableView dequeueReusableCellWithIdentifier:@"shareHomeCell"forIndexPath:indexPath];
     
-        NSArray *button1Image = [NSArray arrayWithObjects:[UIImage imageNamed:@"list_img1"], [UIImage imageNamed:@"list_img2"], [UIImage imageNamed:@"list_img3"], [UIImage imageNamed:@"list_img4"], nil];
+    NSArray *button1Image = [NSArray arrayWithObjects:[UIImage imageNamed:@"list_img1"], [UIImage imageNamed:@"list_img2"], [UIImage imageNamed:@"list_img3"], [UIImage imageNamed:@"list_img4"], nil];
         
-        NSArray *label1Text = [NSArray arrayWithObjects:@"假日\nshare小白\n原创-插画-练习习作\n15分钟前", @"国外画册欣赏\nshare小王\n平面设计-画册设计\n16分钟前", @"collection扁平化设计\nshare小吕\n平面设计-海报设计\n17分钟前", @"板式整理术：\n高效解决\nshare小王\n平面设计-版面设计\n18分钟前", nil];
+    NSArray *label1Text = [NSArray arrayWithObjects:@"假日\nshare小白\n原创-插画-练习习作\n15分钟前", @"国外画册欣赏\nshare小王\n平面设计-画册设计\n16分钟前", @"collection扁平化设计\nshare小吕\n平面设计-海报设计\n17分钟前", @"板式整理术：\n高效解决\nshare小王\n平面设计-版面设计\n18分钟前", nil];
         
         
-        [cell.button1 setImage:button1Image[indexPath.section] forState:UIControlStateNormal];
+    [cell.button1 setImage:button1Image[indexPath.section] forState:UIControlStateNormal];
     
-        if (indexPath.section == 0) {
-         [cell.button1 addTarget:self action:@selector(touchBtn:) forControlEvents:UIControlEventTouchUpInside];
-        }
-        cell.label1.font = [UIFont systemFontOfSize:12];
-        cell.label1.textAlignment = NSTextAlignmentLeft;
-        cell.label1.numberOfLines = 0;
+    if (indexPath.section == 0) {
+        [cell.button1 addTarget:self action:@selector(touchBtn:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    cell.label1.font = [UIFont systemFontOfSize:12];
+    cell.label1.textAlignment = NSTextAlignmentLeft;
+    cell.label1.numberOfLines = 0;
         
-        NSString *str = label1Text[indexPath.section];
-        NSArray *tempArr = [str componentsSeparatedByString:@"s"];
-        NSMutableAttributedString *AttributedStr = [[NSMutableAttributedString alloc]initWithString:str];
+    NSString *str = label1Text[indexPath.section];
+    NSArray *tempArr = [str componentsSeparatedByString:@"s"];
+    NSMutableAttributedString *AttributedStr = [[NSMutableAttributedString alloc]initWithString:str];
         
-        [AttributedStr addAttribute:NSFontAttributeName
+    [AttributedStr addAttribute:NSFontAttributeName
          
                               value:[UIFont systemFontOfSize:20.0]
          
                               range:NSMakeRange(0, ((NSString *)tempArr[0]).length)];
         
-        cell.label1.attributedText = AttributedStr;
+    cell.label1.attributedText = AttributedStr;
         
         
-        [cell.button2 setImage:[UIImage imageNamed:@"点赞"] forState:UIControlStateNormal];
+    //[cell.button2 setImage:[UIImage imageNamed:@"button_zan"] forState:UIControlStateNormal];
+
+    [cell.button2 setImage:[UIImage imageNamed:@"button_zan"] forState:UIControlStateNormal];
+    [cell.button2 setTitleColor:[UIColor colorWithRed:0.18f green:0.52f blue:0.77f alpha:1.00f] forState:UIControlStateNormal];
+    [cell.button2 setTitle:@"25" forState:UIControlStateNormal];
+    [cell.button2 setTitle:@"26" forState:UIControlStateSelected];
+    [cell.button2 addTarget:self action:@selector(touchZan:) forControlEvents:UIControlEventTouchUpInside];
+    cell.button2.titleLabel.font = [UIFont systemFontOfSize:11];
+    
+    [cell.button3 setImage:[UIImage imageNamed:@"button_guanzhu"] forState:UIControlStateNormal];
+    [cell.button3 setTitleColor:[UIColor colorWithRed:0.18f green:0.52f blue:0.77f alpha:1.00f] forState:UIControlStateNormal];
+    [cell.button3 setTitle:@"33" forState:UIControlStateNormal];
+    [cell.button3 setTitle:@"34" forState:UIControlStateSelected];
+    [cell.button3 addTarget:self action:@selector(touchZan:) forControlEvents:UIControlEventTouchUpInside];
+    cell.button3.titleLabel.font = [UIFont systemFontOfSize:11];
+    
+    [cell.button4 setImage:[UIImage imageNamed:@"button_share"] forState:UIControlStateNormal];
+    [cell.button4 setTitleColor:[UIColor colorWithRed:0.18f green:0.52f blue:0.77f alpha:1.00f] forState:UIControlStateNormal];
+    [cell.button4 setTitle:@"12" forState:UIControlStateNormal];
+    [cell.button4 setTitle:@"13" forState:UIControlStateSelected];
+    [cell.button4 addTarget:self action:@selector(touchZan:) forControlEvents:UIControlEventTouchUpInside];
+    cell.button4.titleLabel.font = [UIFont systemFontOfSize:11];
         
-        
-        return cell;
+    return cell;
 }
 
 -(void)touchBtn:(UIButton*)button
@@ -111,6 +183,13 @@
     [self.navigationController pushViewController:holidayViewController animated:YES];
     
 
+}
+
+
+-(void)touchZan:(UIButton*)button
+{
+    button.selected = !button.selected;
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRooterInSection:(NSInteger)section
@@ -148,47 +227,47 @@
     return nil;
 }
 
--(void)layout{
-    //布局ScrollView
-    self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, 320, 210)];
-    [self.view addSubview:_scrollView];
-    
-    //布局pagecontrol
-    self.pageControl = [[UIPageControl alloc]initWithFrame:CGRectMake(40, 170, 240, 30)];
-    
-    [self.view addSubview:_pageControl];
-    
-    int count = 4;
-    CGSize size = self.scrollView.frame.size;
-    //1 动态生成5个imageView
-    for (int i = 0; i < count; i++) {
-        //
-        UIImageView *iconView = [[UIImageView alloc] init];
-        [self.scrollView addSubview:iconView];
-        
-        NSString *imgName = [NSString stringWithFormat:@"main_img%d",i+1];
-        iconView.image = [UIImage imageNamed:imgName];
-        
-        CGFloat x = i * size.width;
-        //frame
-        iconView.frame = CGRectMake(x, 0, size.width, size.height);
-    }
-    //2 设置滚动范围
-    self.scrollView.contentSize = CGSizeMake(count * size.width, 0);
-    self.scrollView.showsHorizontalScrollIndicator = NO;
-    //3 设置分页
-    self.scrollView.pagingEnabled = YES;
-    
-    //4 设置pageControl
-    self.pageControl.numberOfPages = count;
-    self.pageControl.currentPageIndicatorTintColor = [UIColor blueColor];
-    self.pageControl.pageIndicatorTintColor = [UIColor blackColor];
-    //5 设置scrollView的代理
-    self.scrollView.delegate = self;
-    //6 添加定时器
-    [self addTimerTask];
-    
-}
+//-(void)layout{
+//    //布局ScrollView
+//    self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, 320, 210)];
+//    [self.view addSubview:_scrollView];
+//
+//    //布局pagecontrol
+//    self.pageControl = [[UIPageControl alloc]initWithFrame:CGRectMake(40, 170, 240, 30)];
+//
+//    [self.view addSubview:_pageControl];
+//
+//    int count = 4;
+//    CGSize size = self.scrollView.frame.size;
+//    //1 动态生成5个imageView
+//    for (int i = 0; i < count; i++) {
+//        //
+//        UIImageView *iconView = [[UIImageView alloc] init];
+//        [self.scrollView addSubview:iconView];
+//
+//        NSString *imgName = [NSString stringWithFormat:@"main_img%d",i+1];
+//        iconView.image = [UIImage imageNamed:imgName];
+//
+//        CGFloat x = i * size.width;
+//        //frame
+//        iconView.frame = CGRectMake(x, 0, size.width, size.height);
+//    }
+//    //2 设置滚动范围
+//    self.scrollView.contentSize = CGSizeMake(count * size.width, 0);
+//    self.scrollView.showsHorizontalScrollIndicator = NO;
+//    //3 设置分页
+//    self.scrollView.pagingEnabled = YES;
+//
+//    //4 设置pageControl
+//    self.pageControl.numberOfPages = count;
+//    self.pageControl.currentPageIndicatorTintColor = [UIColor blueColor];
+//    self.pageControl.pageIndicatorTintColor = [UIColor blackColor];
+//    //5 设置scrollView的代理
+//    self.scrollView.delegate = self;
+//    //6 添加定时器
+//    [self addTimerTask];
+//
+//}
 
 //把定时器封装起来 方便调用
 -(void)addTimerTask{

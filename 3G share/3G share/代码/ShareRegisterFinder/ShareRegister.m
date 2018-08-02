@@ -9,7 +9,7 @@
 #import "ShareRegister.h"
 #import "ShareLand.h"
 
-@interface ShareRegister ()
+@interface ShareRegister ()<UITextFieldDelegate>
 
 @end
 
@@ -38,6 +38,8 @@
     UITextField *youXiangTextField = [[UITextField alloc] initWithFrame:CGRectMake(50, 300, 230, 50)];
     UITextField *dengLu = [[UITextField alloc] initWithFrame:CGRectMake(50, 370, 230, 50)];
     UITextField *miMa = [[UITextField alloc] initWithFrame:CGRectMake(50, 440, 230, 50)];
+    dengLu.delegate = self;
+    miMa.delegate = self;
 
     
     UIButton *button_Deng = [[UIButton alloc] init];
@@ -72,11 +74,36 @@
     [self.view addSubview:youXiangTextField];
     [self.view addSubview:button_Deng];
     
+    
+    // 有UITextField
+    // 键盘上调事件
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillAppear:) name:UIKeyboardWillShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillDisAppear:) name:UIKeyboardWillHideNotification object:nil];
 }
 -(void)touchBtn:(UIButton*)button
 {
     ShareLand *shareLand = [[ShareLand alloc] init];
     [self presentViewController:shareLand animated:YES completion:nil];
+}
+
+- (void)keyboardWillDisAppear:(NSNotification *)notification{
+    [UIView animateWithDuration:1 animations:^{self.view.transform = CGAffineTransformMakeTranslation(0, 0);}];
+}
+
+- (void)keyboardWillAppear:(NSNotification *)notification{
+    CGRect keyboardFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGFloat keyboardY = keyboardFrame.origin.y;
+    [UIView animateWithDuration:1.0 animations:^{self.view.transform = CGAffineTransformMakeTranslation(0, keyboardY - self.view.frame.size.height);}];
+}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    // 必须辞去第一响应者后,键盘才会回缩.
+    [textField resignFirstResponder];
+    return YES;
+}
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -100,7 +100,26 @@
                               value:[UIFont systemFontOfSize:20.0]
                               range:NSMakeRange(0, ((NSString *)tempArr[0]).length)];
         cell1.label1.attributedText = AttributedStr;
-        [cell1.button2 setImage:[UIImage imageNamed:@"点赞"] forState:UIControlStateNormal];
+        [cell1.button2 setImage:[UIImage imageNamed:@"button_zan"] forState:UIControlStateNormal];
+        [cell1.button2 setTitleColor:[UIColor colorWithRed:0.18f green:0.52f blue:0.77f alpha:1.00f] forState:UIControlStateNormal];
+        [cell1.button2 setTitle:@"25" forState:UIControlStateNormal];
+        [cell1.button2 setTitle:@"26" forState:UIControlStateSelected];
+        [cell1.button2 addTarget:self action:@selector(touchZan:) forControlEvents:UIControlEventTouchUpInside];
+        cell1.button2.titleLabel.font = [UIFont systemFontOfSize:11];
+        
+        [cell1.button3 setImage:[UIImage imageNamed:@"button_guanzhu"] forState:UIControlStateNormal];
+        [cell1.button3 setTitleColor:[UIColor colorWithRed:0.18f green:0.52f blue:0.77f alpha:1.00f] forState:UIControlStateNormal];
+        [cell1.button3 setTitle:@"33" forState:UIControlStateNormal];
+        [cell1.button3 setTitle:@"34" forState:UIControlStateSelected];
+        [cell1.button3 addTarget:self action:@selector(touchZan:) forControlEvents:UIControlEventTouchUpInside];
+        cell1.button3.titleLabel.font = [UIFont systemFontOfSize:11];
+        
+        [cell1.button4 setImage:[UIImage imageNamed:@"button_share"] forState:UIControlStateNormal];
+        [cell1.button4 setTitleColor:[UIColor colorWithRed:0.18f green:0.52f blue:0.77f alpha:1.00f] forState:UIControlStateNormal];
+        [cell1.button4 setTitle:@"12" forState:UIControlStateNormal];
+        [cell1.button4 setTitle:@"13" forState:UIControlStateSelected];
+        [cell1.button4 addTarget:self action:@selector(touchZan:) forControlEvents:UIControlEventTouchUpInside];
+        cell1.button4.titleLabel.font = [UIFont systemFontOfSize:11];
         return cell1;
     } else if (tableView.tag == 2) {
         ShareInformationRecommendTableViewCell *cell2 = nil;
@@ -118,7 +137,27 @@
                                value:[UIFont systemFontOfSize:20.0]
                                range:NSMakeRange(0, ((NSString *)tempArr2[0]).length)];
         cell2.label1.attributedText = AttributedStr2;
-        [cell2.button2 setImage:[UIImage imageNamed:@"点赞"] forState:UIControlStateNormal];
+        
+        [cell2.button2 setImage:[UIImage imageNamed:@"button_zan"] forState:UIControlStateNormal];
+        [cell2.button2 setTitleColor:[UIColor colorWithRed:0.18f green:0.52f blue:0.77f alpha:1.00f] forState:UIControlStateNormal];
+        [cell2.button2 setTitle:@"25" forState:UIControlStateNormal];
+        [cell2.button2 setTitle:@"26" forState:UIControlStateSelected];
+        [cell2.button2 addTarget:self action:@selector(touchZan:) forControlEvents:UIControlEventTouchUpInside];
+        cell2.button2.titleLabel.font = [UIFont systemFontOfSize:11];
+        
+        [cell2.button3 setImage:[UIImage imageNamed:@"button_guanzhu"] forState:UIControlStateNormal];
+        [cell2.button3 setTitleColor:[UIColor colorWithRed:0.18f green:0.52f blue:0.77f alpha:1.00f] forState:UIControlStateNormal];
+        [cell2.button3 setTitle:@"33" forState:UIControlStateNormal];
+        [cell2.button3 setTitle:@"34" forState:UIControlStateSelected];
+        [cell2.button3 addTarget:self action:@selector(touchZan:) forControlEvents:UIControlEventTouchUpInside];
+        cell2.button3.titleLabel.font = [UIFont systemFontOfSize:11];
+        
+        [cell2.button4 setImage:[UIImage imageNamed:@"button_share"] forState:UIControlStateNormal];
+        [cell2.button4 setTitleColor:[UIColor colorWithRed:0.18f green:0.52f blue:0.77f alpha:1.00f] forState:UIControlStateNormal];
+        [cell2.button4 setTitle:@"12" forState:UIControlStateNormal];
+        [cell2.button4 setTitle:@"13" forState:UIControlStateSelected];
+        [cell2.button4 addTarget:self action:@selector(touchZan:) forControlEvents:UIControlEventTouchUpInside];
+        cell2.button4.titleLabel.font = [UIFont systemFontOfSize:11];
         return cell2;
     } else {
         ShareInformationRecommendTableViewCell *cell3 = nil;
@@ -136,14 +175,38 @@
                                value:[UIFont systemFontOfSize:20.0]
                                range:NSMakeRange(0, ((NSString *)tempArr3[0]).length)];
         cell3.label1.attributedText = AttributedStr3;
-        [cell3.button2 setImage:[UIImage imageNamed:@"点赞"] forState:UIControlStateNormal];
+        
+        [cell3.button2 setImage:[UIImage imageNamed:@"button_zan"] forState:UIControlStateNormal];
+        [cell3.button2 setTitleColor:[UIColor colorWithRed:0.18f green:0.52f blue:0.77f alpha:1.00f] forState:UIControlStateNormal];
+        [cell3.button2 setTitle:@"25" forState:UIControlStateNormal];
+        [cell3.button2 setTitle:@"26" forState:UIControlStateSelected];
+        [cell3.button2 addTarget:self action:@selector(touchZan:) forControlEvents:UIControlEventTouchUpInside];
+        cell3.button2.titleLabel.font = [UIFont systemFontOfSize:11];
+        
+        [cell3.button3 setImage:[UIImage imageNamed:@"button_guanzhu"] forState:UIControlStateNormal];
+        [cell3.button3 setTitleColor:[UIColor colorWithRed:0.18f green:0.52f blue:0.77f alpha:1.00f] forState:UIControlStateNormal];
+        [cell3.button3 setTitle:@"33" forState:UIControlStateNormal];
+        [cell3.button3 setTitle:@"34" forState:UIControlStateSelected];
+        [cell3.button3 addTarget:self action:@selector(touchZan:) forControlEvents:UIControlEventTouchUpInside];
+        cell3.button3.titleLabel.font = [UIFont systemFontOfSize:11];
+        
+        [cell3.button4 setImage:[UIImage imageNamed:@"button_share"] forState:UIControlStateNormal];
+        [cell3.button4 setTitleColor:[UIColor colorWithRed:0.18f green:0.52f blue:0.77f alpha:1.00f] forState:UIControlStateNormal];
+        [cell3.button4 setTitle:@"12" forState:UIControlStateNormal];
+        [cell3.button4 setTitle:@"13" forState:UIControlStateSelected];
+        [cell3.button4 addTarget:self action:@selector(touchZan:) forControlEvents:UIControlEventTouchUpInside];
+        cell3.button4.titleLabel.font = [UIFont systemFontOfSize:11];
         return cell3;
 
     }
     
 }
 
-
+-(void)touchZan:(UIButton*)button
+{
+    button.selected = !button.selected;
+    
+}
 - (void)leftBarBtnClicked:(UIButton *)btn
 {
     [self.navigationController popViewControllerAnimated:YES];

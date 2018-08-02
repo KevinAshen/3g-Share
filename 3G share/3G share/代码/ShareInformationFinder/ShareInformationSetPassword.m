@@ -8,7 +8,7 @@
 
 #import "ShareInformationSetPassword.h"
 
-@interface ShareInformationSetPassword () <UITableViewDelegate, UITableViewDataSource>
+@interface ShareInformationSetPassword () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 
@@ -64,15 +64,34 @@
         
         UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(100, 10, 220, 40)];
         NSArray *text1NSArry = [NSArray arrayWithObjects:@"6—20英文或数字结合",  @"6—20英文或数字结合", @"请再次确认输入密码", nil];
-        textField.text = text1NSArry[indexPath.section];
-        
-        
+        textField.placeholder = text1NSArry[indexPath.section];
+        textField.delegate = self;
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillAppear:) name:UIKeyboardWillShowNotification object:nil];
+//        
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillDisAppear:) name:UIKeyboardWillHideNotification object:nil];
         [cell1.contentView addSubview:textField];
     }
     return cell1;
 }
 
+- (void)keyboardWillDisAppear:(NSNotification *)notification{
+    [UIView animateWithDuration:1 animations:^{self.view.transform = CGAffineTransformMakeTranslation(0, 0);}];
+}
 
+- (void)keyboardWillAppear:(NSNotification *)notification{
+    CGRect keyboardFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGFloat keyboardY = keyboardFrame.origin.y;
+    [UIView animateWithDuration:1.0 animations:^{self.view.transform = CGAffineTransformMakeTranslation(0, keyboardY - self.view.frame.size.height);}];
+}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    // 必须辞去第一响应者后,键盘才会回缩.
+    [textField resignFirstResponder];
+    return YES;
+}
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
+}
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

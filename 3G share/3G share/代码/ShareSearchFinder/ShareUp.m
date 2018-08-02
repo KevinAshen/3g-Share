@@ -10,7 +10,7 @@
 #import "LMJDropdownMenu.h"
 #import "ShareUpChoose.h"
 
-@interface ShareUp ()<LMJDropdownMenuDelegate>
+@interface ShareUp ()<LMJDropdownMenuDelegate, UITextFieldDelegate, UITextViewDelegate>
 
 @end
 
@@ -96,14 +96,16 @@
         [self.view addSubview:tag3];
     }
     
-    UITextView *nameTextView= [[UITextView alloc] initWithFrame:CGRectMake(0, 240, 320, 30)];
-    nameTextView.text = @"作品名称";
-    nameTextView.textColor = [UIColor colorWithRed:0.84f green:0.84f blue:0.84f alpha:1.00f];
+    UITextField *nameTextView= [[UITextField alloc] initWithFrame:CGRectMake(0, 240, 320, 30)];
+    nameTextView.backgroundColor = [UIColor whiteColor];
+    nameTextView.placeholder = @"作品名称";
+    nameTextView.delegate = self;
     [self.view addSubview:nameTextView];
     
     UITextView *zuoTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 280, 320, 90)];
     zuoTextView.text = @"请添加作品说明/文章内容......";
-    zuoTextView.textColor = [UIColor colorWithRed:0.84f green:0.84f blue:0.84f alpha:1.00f];
+    zuoTextView.textColor = [UIColor blackColor];
+    zuoTextView.delegate = self;
     [self.view addSubview:zuoTextView];
     
     UIButton *faButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 380, 280, 60)];
@@ -113,6 +115,32 @@
     [faButton setTitle:@"发布" forState:UIControlStateNormal];
     [self.view addSubview:faButton];
     
+    // 有UITextField
+    // 键盘上调事件
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillAppear:) name:UIKeyboardWillShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillDisAppear:) name:UIKeyboardWillHideNotification object:nil];
+    
+    
+}
+
+- (void)keyboardWillDisAppear:(NSNotification *)notification{
+    [UIView animateWithDuration:1 animations:^{self.view.transform = CGAffineTransformMakeTranslation(0, 0);}];
+}
+
+- (void)keyboardWillAppear:(NSNotification *)notification{
+    CGRect keyboardFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGFloat keyboardY = keyboardFrame.origin.y;
+    [UIView animateWithDuration:1.0 animations:^{self.view.transform = CGAffineTransformMakeTranslation(0, keyboardY - self.view.frame.size.height);}];
+}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    // 必须辞去第一响应者后,键盘才会回缩.
+    [textField resignFirstResponder];
+    return YES;
+}
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
 }
 
 -(void)touchBtn1:(UIButton*)button

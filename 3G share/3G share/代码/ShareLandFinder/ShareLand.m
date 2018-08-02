@@ -18,7 +18,7 @@
 #import "ShareInformation.h"
 #import "ShareStart.h"
 
-@interface ShareLand ()<UIApplicationDelegate>
+@interface ShareLand ()<UITextFieldDelegate>
 
 @end
 
@@ -45,6 +45,14 @@
     
     UITextField *dengLu = [[UITextField alloc] initWithFrame:CGRectMake(50, 300, 230, 50)];
     UITextField *miMa = [[UITextField alloc] initWithFrame:CGRectMake(50, 370, 230, 50)];
+    dengLu.delegate = self;
+    miMa.delegate = self;
+    
+    
+    // 键盘上移事件
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillAppear:) name:UIKeyboardWillShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillDisAppear:) name:UIKeyboardWillHideNotification object:nil];
     
     UIButton *button_Deng = [[UIButton alloc] init];
     button_Deng.backgroundColor = [UIColor colorWithRed:0.24f green:0.58f blue:0.85f alpha:1.00f];
@@ -138,6 +146,25 @@
     [self presentViewController:tbController animated:YES completion:nil];
 }
 
+- (void)keyboardWillDisAppear:(NSNotification *)notification{
+    [UIView animateWithDuration:1 animations:^{self.view.transform = CGAffineTransformMakeTranslation(0, 0);}];
+}
+
+- (void)keyboardWillAppear:(NSNotification *)notification{
+    CGRect keyboardFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGFloat keyboardY = keyboardFrame.origin.y;
+    [UIView animateWithDuration:1.0 animations:^{self.view.transform = CGAffineTransformMakeTranslation(0, keyboardY - self.view.frame.size.height);}];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    // 必须辞去第一响应者后,键盘才会回缩.
+    [textField resignFirstResponder];
+    return YES;
+}
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

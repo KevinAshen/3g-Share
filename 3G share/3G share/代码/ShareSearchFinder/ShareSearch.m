@@ -11,7 +11,7 @@
 #import "DaViewController.h"
 
 
-@interface ShareSearch ()
+@interface ShareSearch ()<UITextFieldDelegate>
 
 @end
 
@@ -50,6 +50,7 @@
     self.searchBar.delegate = self;
     self.searchBar.borderStyle = UITextBorderStyleRoundedRect;
     [self.searchBar addTarget:self action:@selector(dabai:) forControlEvents:UIControlEventEditingDidEnd];
+    self.searchBar.delegate = self;
     [self.view addSubview:self.searchBar];
     
     
@@ -93,6 +94,12 @@
             [self.view addSubview:tag2];
         }
     }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    // 必须辞去第一响应者后,键盘才会回缩.
+    [textField resignFirstResponder];
+    return YES;
 }
 
 - (void)dabai:(UITextField *)tf{

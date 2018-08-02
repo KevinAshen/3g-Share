@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ShareUpChoose : UIViewController
-
+{
+    UICollectionView* mainCollectionView;
+}
 @end
