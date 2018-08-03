@@ -56,7 +56,7 @@
     _scrollView.contentSize = CGSizeMake(320 * 3, 450);
     _scrollView.delegate = self;
     _scrollView.pagingEnabled = YES;
-    _scrollView.scrollEnabled = NO;
+    _scrollView.scrollEnabled = YES;
     _scrollView.bounces = YES;
     _scrollView.bouncesZoom = NO;
     _scrollView.showsHorizontalScrollIndicator = NO;
@@ -197,6 +197,18 @@
         cell3.button4.titleLabel.font = [UIFont systemFontOfSize:11];
         return cell3;
         
+    }
+}
+
+// 还有一点小瑕疵，比如点击上面按钮时，中间的按钮也会变黑
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (scrollView.contentOffset.x == 0) {
+        _segmentedControl.selectedSegmentIndex = 0;
+    } else if (scrollView.contentOffset.x == 320) {
+        _segmentedControl.selectedSegmentIndex = 1;
+    } else if (scrollView.contentOffset.x == 640) {
+        _segmentedControl.selectedSegmentIndex = 2;
     }
 }
 

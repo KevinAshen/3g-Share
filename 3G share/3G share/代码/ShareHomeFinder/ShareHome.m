@@ -23,7 +23,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.18f green:0.52f blue:0.77f alpha:1.00f];
     [self.navigationController.navigationBar setTitleTextAttributes:
      @{NSFontAttributeName:[UIFont systemFontOfSize:20],
@@ -64,9 +63,6 @@
     
     _pageControl = [[UIPageControl alloc]initWithFrame:CGRectMake(60, 170, 200, 30)];
     int count = 4;
-    //CGSize size = _sv.frame.size;
-    
-    
     for (int i = 0; i < 4; i++) {
         NSString* strName = [NSString stringWithFormat:@"main_img%d",i+1];
         
@@ -91,16 +87,6 @@
     [self addTimerTask];
     [titleView addSubview:_scrollView];
     [titleView addSubview:_pageControl];
-
-    
-//    _tableView.delegate = self;
-//    _tableView.dataSource = self;
-//    [self.view addSubview:_tableView];
-//
-//    _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-//    self.edgesForExtendedLayout = UIRectEdgeAll;
-//    self.automaticallyAdjustsScrollViewInsets = NO;
-    
 }
 
 

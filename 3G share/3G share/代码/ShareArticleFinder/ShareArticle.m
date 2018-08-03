@@ -57,7 +57,7 @@
     _scrollView.contentSize = CGSizeMake(320 * 3, 450);
     _scrollView.delegate = self;
     _scrollView.pagingEnabled = YES;
-    _scrollView.scrollEnabled = NO;
+    _scrollView.scrollEnabled = YES;
     _scrollView.bounces = YES;
     _scrollView.bouncesZoom = NO;
     _scrollView.showsHorizontalScrollIndicator = NO;
@@ -83,6 +83,17 @@
     [_tableView3 registerClass:[ShareInformationRecommendTableViewCell class]  forCellReuseIdentifier:@"cell3"];
 }
 
+// 还有一点小瑕疵，比如点击上面按钮时，中间的按钮也会变黑
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (scrollView.contentOffset.x == 0) {
+        _segmentedControl.selectedSegmentIndex = 0;
+    } else if (scrollView.contentOffset.x == 320) {
+        _segmentedControl.selectedSegmentIndex = 1;
+    } else if (scrollView.contentOffset.x == 640) {
+        _segmentedControl.selectedSegmentIndex = 2;
+    }
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView.tag == 1) {
         ShareInformationRecommendTableViewCell *cell1 = nil;
@@ -189,7 +200,7 @@
         [cell3.button3 setTitle:@"34" forState:UIControlStateSelected];
         [cell3.button3 addTarget:self action:@selector(touchZan:) forControlEvents:UIControlEventTouchUpInside];
         cell3.button3.titleLabel.font = [UIFont systemFontOfSize:11];
-        
+
         [cell3.button4 setImage:[UIImage imageNamed:@"button_share"] forState:UIControlStateNormal];
         [cell3.button4 setTitleColor:[UIColor colorWithRed:0.18f green:0.52f blue:0.77f alpha:1.00f] forState:UIControlStateNormal];
         [cell3.button4 setTitle:@"12" forState:UIControlStateNormal];

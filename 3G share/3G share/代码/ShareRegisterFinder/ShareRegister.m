@@ -49,7 +49,7 @@
     button_Deng.layer.borderColor = [UIColor whiteColor].CGColor;
     button_Deng.frame = CGRectMake(80, 510, 170, 40);
     button_Deng.layer.cornerRadius = 5;
-    [button_Deng setTitle:@"登录成功" forState:UIControlStateNormal];
+    [button_Deng setTitle:@"注册成功" forState:UIControlStateNormal];
     [button_Deng setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [button_Deng addTarget:self action:@selector(touchBtn:) forControlEvents:UIControlEventTouchUpInside];
     

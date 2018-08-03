@@ -10,4 +10,10 @@
 
 @interface ShareInformationMessageLetterLan : UIViewController
 
+@property (nonatomic,retain) UITableView *tableView;
+@property (nonatomic,retain) NSMutableArray *messageArray;
+@property (nonatomic,retain) NSMutableArray *rowheightArray;
+@property (nonatomic,retain) NSNumber *rowheight;
+@property (nonatomic,retain) UITextField *text;
+
 @end

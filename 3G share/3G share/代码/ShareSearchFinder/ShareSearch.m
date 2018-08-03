@@ -67,7 +67,9 @@
         tag1.layer.cornerRadius = 3;
         tag1.titleLabel.font = [UIFont systemFontOfSize:14];
         tag1.backgroundColor = [UIColor whiteColor];
+        [tag1 setBackgroundImage:[UIImage imageNamed:@"back1919"] forState:UIControlStateSelected];
         [tag1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [tag1 setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
         [tag1 setTitle:tagText[0][i] forState:UIControlStateNormal];
         [tag1 addTarget:self action:@selector(touch:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:tag1];
@@ -88,7 +90,9 @@
             tag2.layer.cornerRadius = 3;
             tag2.titleLabel.font = [UIFont systemFontOfSize:14];
             tag2.backgroundColor = [UIColor whiteColor];
+            [tag2 setBackgroundImage:[UIImage imageNamed:@"back1919"] forState:UIControlStateSelected];
             [tag2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [tag2 setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
             [tag2 setTitle:tagText[i][j % 4] forState:UIControlStateNormal];
             [tag2 addTarget:self action:@selector(touch:) forControlEvents:UIControlEventTouchUpInside];
             [self.view addSubview:tag2];
@@ -113,14 +117,6 @@
 
 - (void)touch:(UIButton *)button {
     button.selected = !button.selected;
-    if(button.selected){
-        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [button setBackgroundColor:[UIColor whiteColor]];
-    }else{
-        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [button setBackgroundColor:[UIColor colorWithRed:0.18f green:0.52f blue:0.77f alpha:1.00f]];
-    }
-    
 }
 
 //点击屏幕空白处调用此函数
